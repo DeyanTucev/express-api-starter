@@ -1,20 +1,20 @@
-// routes/products.js
+// routes/pizzas.js
 const express = require('express');
 const { body, param } = require('express-validator');
-const productController = require('../controllers/productController');
+const pizzaController = require('../controllers/pizzaController');
 
 const router = express.Router();
 
 /**
  * @openapi
- * /api/products:
+ * /api/pizzas:
  *   get:
- *     summary: Retrieve a list of products
+ *     summary: Retrieve a list of pizzas
  *     responses:
  *       200:
- *         description: A list of products
+ *         description: A list of pizzas
  *   post:
- *     summary: Create a new product
+ *     summary: Create a new pizza
  *     requestBody:
  *       required: true
  *       content:
@@ -33,18 +33,20 @@ const router = express.Router();
  *                 type: string
  *               price:
  *                 type: number
+ *               dailyPizza:
+ *                 type: Boolean
  *     responses:
  *       201:
- *         description: Product created
+ *         description: Pizza created
  *       400:
  *         description: Invalid input
  */
 
 /**
  * @openapi
- * /api/products/{id}:
+ * /api/pizzas/{id}:
  *   get:
- *     summary: Get a product by ID
+ *     summary: Get a pizza by ID
  *     parameters:
  *       - in: path
  *         name: id
@@ -53,11 +55,11 @@ const router = express.Router();
  *           type: integer
  *     responses:
  *       200:
- *         description: A single product
+ *         description: A single pizza
  *       404:
- *         description: Product not found
+ *         description: pizza not found
  *   put:
- *     summary: Update a product by ID
+ *     summary: Update a pizza by ID
  *     parameters:
  *       - in: path
  *         name: id
@@ -79,15 +81,17 @@ const router = express.Router();
  *                 type: string
  *               price:
  *                 type: number
+ *               dailyPizza:
+ *                 type: Boolean
  *     responses:
  *       200:
- *         description: Product updated
+ *         description: pizza updated
  *       400:
  *         description: Invalid input
  *       404:
- *         description: Product not found
+ *         description: Pizza not found
  *   delete:
- *     summary: Delete a product by ID
+ *     summary: Delete a pizza by ID
  *     parameters:
  *       - in: path
  *         name: id
@@ -96,9 +100,9 @@ const router = express.Router();
  *           type: integer
  *     responses:
  *       204:
- *         description: Product deleted
+ *         description: pizza deleted
  *       404:
- *         description: Product not found
+ *         description: pizza not found
  */
 
 /**
@@ -109,12 +113,13 @@ const createAndUpdateValidations = [
     body('description').optional().isString(),
     body('imageUrl').optional().isString().isURL().withMessage('imageUrl must be a valid URL'),
     body('price').isFloat({ gt: 0 }).withMessage('price must be a positive number'),
+    body('dailyPizza').isBoolean().withMessage('dailyPizza must be true or false'),
 ];
 
-router.get('/', productController.findAll);
-router.post('/', createAndUpdateValidations, productController.create);
-router.get('/:id', [param('id').isInt().withMessage('id must be an integer')], productController.findOne);
-router.put('/:id', [param('id').isInt().withMessage('id must be an integer'), ...createAndUpdateValidations], productController.update);
-router.delete('/:id', [param('id').isInt().withMessage('id must be an integer')], productController.delete);
+router.get('/', pizzaController.findAll);
+router.post('/', createAndUpdateValidations, pizzaController.create);
+router.get('/:id', [param('id').isInt().withMessage('id must be an integer')], pizzaController.findOne);
+router.put('/:id', [param('id').isInt().withMessage('id must be an integer'), ...createAndUpdateValidations], pizzaController.update);
+router.delete('/:id', [param('id').isInt().withMessage('id must be an integer')], pizzaController.delete);
 
 module.exports = router;
