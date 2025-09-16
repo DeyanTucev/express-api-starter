@@ -48,6 +48,21 @@ db.serialize(() => {
             process.exit(1);
         }
     });
+    db.run(`
+        CREATE TABLE IF NOT EXISTS pizza_ingredient (
+            pizza_id INTEGER NOT NULL,
+            ingredient_id INTEGER NOT NULL,
+            PRIMARY KEY (pizza_id, ingredient_id),
+            FOREIGN KEY (pizza_id) REFERENCES pizza(id),
+            FOREIGN KEY (ingredient_id) REFERENCES ingredient(id)
+            )
+    `, (err) => {
+        if (err) {
+            console.error('Failed to create pizza_ingredient table', err);
+            process.exit(1);
+        }
+    });
+
 });
 
 module.exports = db;

@@ -13,6 +13,34 @@ const router = express.Router();
  *     responses:
  *       200:
  *         description: A list of pizzas
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: integer
+ *                   name:
+ *                     type: string
+ *                   description:
+ *                     type: string
+ *                   imageUrl:
+ *                     type: string
+ *                   price:
+ *                     type: number
+ *                   dailyPizza:
+ *                     type: boolean
+ *                   ingredients:
+ *                     type: array
+ *                     items:
+ *                       type: object
+ *                       properties:
+ *                         id:
+ *                           type: integer
+ *                         name:
+ *                           type: string
  *   post:
  *     summary: Create a new pizza
  *     requestBody:
@@ -34,10 +62,40 @@ const router = express.Router();
  *               price:
  *                 type: number
  *               dailyPizza:
- *                 type: Boolean
+ *                 type: boolean
+ *               ingredientIds:
+ *                 type: array
+ *                 items:
+ *                   type: integer
  *     responses:
  *       201:
  *         description: Pizza created
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: integer
+ *                 name:
+ *                   type: string
+ *                 description:
+ *                   type: string
+ *                 imageUrl:
+ *                   type: string
+ *                 price:
+ *                   type: number
+ *                 dailyPizza:
+ *                   type: boolean
+ *                 ingredients:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: integer
+ *                       name:
+ *                         type: string
  *       400:
  *         description: Invalid input
  */
@@ -56,6 +114,32 @@ const router = express.Router();
  *     responses:
  *       200:
  *         description: A single pizza
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: integer
+ *                 name:
+ *                   type: string
+ *                 description:
+ *                   type: string
+ *                 imageUrl:
+ *                   type: string
+ *                 price:
+ *                   type: number
+ *                 dailyPizza:
+ *                   type: boolean
+ *                 ingredients:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: integer
+ *                       name:
+ *                         type: string
  *       404:
  *         description: pizza not found
  *   put:
@@ -82,7 +166,11 @@ const router = express.Router();
  *               price:
  *                 type: number
  *               dailyPizza:
- *                 type: Boolean
+ *                 type: boolean
+ *               ingredientIds:
+ *                 type: array
+ *                 items:
+ *                   type: integer
  *     responses:
  *       200:
  *         description: pizza updated
@@ -103,8 +191,6 @@ const router = express.Router();
  *         description: pizza deleted
  *       404:
  *         description: pizza not found
- */
-
 /**
  * Validation rules
  */

@@ -1,4 +1,4 @@
-// routes/pizzas.js
+// routes/ingredients.js
 const express = require('express');
 const { body, param } = require('express-validator');
 const ingredientController = require('../controllers/ingredientController');
@@ -7,7 +7,7 @@ const router = express.Router();
 
 /**
  * @openapi
- * /api/ingredient:
+ * /api/ingredients:
  *   get:
  *     summary: Retrieve a list of ingredient
  *     responses:
